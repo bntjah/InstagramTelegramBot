@@ -58,7 +58,7 @@ def main():
                                         await asyncio.sleep(.2)
                             if pic_to_send.comments_data is not None and len(pic_to_send.comments_data):
                                 for comment in json.loads(pic_to_send.comments_data):
-                                    await bot.sendMessage(chat_id=chat_id, text='/{} комментарий от {} запощен в {} с текстом:\n{}'
+                                    await bot.sendMessage(chat_id=chat_id, text='/{} Comment from {} Commented In {} With Comment:\n{}'
                                                           .format(pic_to_send.username,
                                                                   comment['owner']['username'],
                                                                   datetime.datetime.fromtimestamp(int(comment['created_at'])).strftime('%Y-%m-%d %H:%M:%S'),
@@ -120,9 +120,9 @@ def main():
                 new_chat_info = session.query(Chat).filter(Chat.chat_id == chat_id).first()
                 if new_chat_info is None:
                     new_chat_info = Chat(chat_id=chat_id, admin=False, tg_ans=str(msg))
-                    await bot.sendMessage(chat_id, u'Шо?! Новый пользователь?!')
+                    await bot.sendMessage(chat_id, u'Who?! New User?!')
                 else:
-                    await bot.sendMessage(chat_id, u'А я тебя уже знаю')
+                    await bot.sendMessage(chat_id, u'I already know you')
                 session.add(new_chat_info)
                 try:
                     session.commit()
@@ -139,9 +139,9 @@ def main():
                         session.commit()
                     except Exception as e:
                         session.rollback()
-                    await bot.sendMessage(chat_id, u'Слушаю и повинуюсь, хозяин')
+                    await bot.sendMessage(chat_id, u'I listen and obey master')
                 else:
-                    await bot.sendMessage(chat_id, u'ЭЭЭ ТЫ КТО ТАКОЙ? ДАВАЙ ДО СВИДАНИЯ!')
+                    await bot.sendMessage(chat_id, u'Hey Who are you? Goodbye!')
             elif command.startswith('/subscriptions') and session.query(Chat).filter(Chat.chat_id == chat_id and Chat.admin == True):
                 is_succ = session.query(Chat).filter(and_(Chat.chat_id == chat_id,  Chat.admin == True)).all()
                 if not is_succ:
@@ -160,23 +160,23 @@ def main():
                     command = command[1:]
                 infomation_about_user = await InstagramFeedParserRSS.get_info(command)
                 if infomation_about_user is None:
-                    await bot.sendMessage(chat_id, "Проблема с пользователем {} его rss-лента не парсится".format(command))
+                    await bot.sendMessage(chat_id, "Problem with the user {} the RSS feed is not parsing".format(command))
                 elif is_succ is not None and len(is_succ) > 0:
                     await bot.sendMessage(chat_id, infomation_about_user)
                     markup = InlineKeyboardMarkup(inline_keyboard=[
-                        [InlineKeyboardButton(text='подписаться', callback_data=json.dumps({'action': 'subscribe', 'username': command}))],
-                        [InlineKeyboardButton(text='отписаться', callback_data=json.dumps({'action': 'unsubscribe', 'username': command}))],
-                        [InlineKeyboardButton(text='прислать последние 3 фото RSS ленты', callback_data=json.dumps({'action': 'last', 'username': command}))],
-                        [InlineKeyboardButton(text='прислать все фото, что есть RSS', callback_data=json.dumps({'action': 'all', 'username': command}))],
-                        [InlineKeyboardButton(text='прислать последние 3 фото Instaloader',
+                        [InlineKeyboardButton(text='Subscribe', callback_data=json.dumps({'action': 'subscribe', 'username': command}))],
+                        [InlineKeyboardButton(text='Unsubscribe', callback_data=json.dumps({'action': 'unsubscribe', 'username': command}))],
+                        [InlineKeyboardButton(text='Send the last 3 pictures', callback_data=json.dumps({'action': 'last', 'username': command}))],
+                        [InlineKeyboardButton(text='Send all pictures that have RSS', callback_data=json.dumps({'action': 'all', 'username': command}))],
+                        [InlineKeyboardButton(text='Send last 3 pictures from Instaloader',
                                               callback_data=json.dumps({'action': 'last', 'username': command}))],
-                        [InlineKeyboardButton(text='прислать все фото, что есть Instaloader',
+                        [InlineKeyboardButton(text='Send all pictures that have Instaloader',
                                               callback_data=json.dumps({'action': 'all', 'username': command}))],
                     ])
                     global message_with_inline_keyboard
-                    message_with_inline_keyboard = await bot.sendMessage(chat_id, 'что прикажете?', reply_markup=markup)
+                    message_with_inline_keyboard = await bot.sendMessage(chat_id, 'What do you want?', reply_markup=markup)
                 else:
-                    await bot.sendMessage(chat_id, 'Вы не администратор. Вам нельзя.')
+                    await bot.sendMessage(chat_id, 'You are not an admin! You are not allowed to do this action!')
         except Exception as e:
             logging.exception(e)
             for chat_id in [x.chat_id for x in session.query(Chat).filter(Chat.admin == True).all()]:
