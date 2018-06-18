@@ -160,7 +160,7 @@ def main():
                     command = command[1:]
                 infomation_about_user = await InstagramFeedParserRSS.get_info(command)
                 if infomation_about_user is None:
-                    await bot.sendMessage(chat_id, "Problem with the user {} the RSS feed is not parsing".format(command))
+                    await bot.sendMessage(chat_id, "Unable to find the user {} on instagram. Are you sure you typed the right name?".format(command))
                 elif is_succ is not None and len(is_succ) > 0:
                     await bot.sendMessage(chat_id, infomation_about_user)
                     markup = InlineKeyboardMarkup(inline_keyboard=[
