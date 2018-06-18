@@ -1,3 +1,4 @@
+# Not my work just trying to put it in English
 # InstagramTelegramBot
 Telegram Bot monitoring Instagram accounts and send photos
 Now bot parsing RSS-feed of websta.me, getting photos with titles and send it to subscribers
