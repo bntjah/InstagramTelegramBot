@@ -27,5 +27,5 @@ cd urllib3-1.21.1
 python3 setup.py install
 git clone https://github.com/bntjah/InstagramTelegramBot/
 cd InstagramTelegramBot
-pip3 -r requirements.txt
+pip3 install -r requirements.txt
 ```
