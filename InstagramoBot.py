@@ -122,7 +122,7 @@ def main():
                     new_chat_info = Chat(chat_id=chat_id, admin=False, tg_ans=str(msg))
                     await bot.sendMessage(chat_id, u'Who?! New User?!')
                 else:
-                    await bot.sendMessage(chat_id, u'You are already authorized!')
+                    await bot.sendMessage(chat_id, u'I already know you...')
                 session.add(new_chat_info)
                 try:
                     session.commit()
