@@ -81,9 +81,9 @@ async def get_info(username):
         if feed is None or feed['bozo'] == 1 or 'bozo_exception' in feed:
             return None
         else:
-            return "Заголовок ленты: {}, страница {}"\
+            return "Title: {}, Feed {}"\
                 .format(feed['feed']['title'] if 'feed' in feed and 'title' in feed['feed'] else None,
-                        'публичная, есть фото' if 'entries' in feed and len(feed['entries']) > 0 else 'приватная или пустая')
+                        'Public have a picture' if 'entries' in feed and len(feed['entries']) > 0 else 'Private or no pictures yet...')
     except Exception as e:
         return None
 
