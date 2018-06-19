@@ -28,7 +28,10 @@ wget https://files.pythonhosted.org/packages/96/d9/40e4e515d3e17ed0adbbde1078e85
 tar zxvf urllib3-1.21.1.tar.gz
 cd urllib3-1.21.1
 python3 setup.py install
-git clone https://github.com/bntjah/InstagramTelegramBot/
-cd InstagramTelegramBot
+git clone https://github.com/bntjah/InstagramTelegramBot/ /opt/InstagramTelegramBot/
+cd /opt/InstagramTelegramBot/
 pip3 install -r requirements.txt
+sudo cp instagramtelegrambot.service /etc/systemd/system/
+sudo systemctl enable instagramtelegrambot.service
+sudo service instagramtelegrambot start
 ```
