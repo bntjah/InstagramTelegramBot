@@ -122,7 +122,7 @@ def main():
                     new_chat_info = Chat(chat_id=chat_id, admin=False, tg_ans=str(msg))
                     await bot.sendMessage(chat_id, u'Who?! New User?!')
                 else:
-                    await bot.sendMessage(chat_id, u'I already know you')
+                    await bot.sendMessage(chat_id, u'You are already authorized!')
                 session.add(new_chat_info)
                 try:
                     session.commit()
@@ -139,9 +139,9 @@ def main():
                         session.commit()
                     except Exception as e:
                         session.rollback()
-                    await bot.sendMessage(chat_id, u'I listen and obey master')
+                    await bot.sendMessage(chat_id, u'You are now authorized to use this bot!')
                 else:
-                    await bot.sendMessage(chat_id, u'Hey Who are you? Goodbye!')
+                    await bot.sendMessage(chat_id, u'Hey, who are you? Goodbye!')
             elif command.startswith('/subscriptions') and session.query(Chat).filter(Chat.chat_id == chat_id and Chat.admin == True):
                 is_succ = session.query(Chat).filter(and_(Chat.chat_id == chat_id,  Chat.admin == True)).all()
                 if not is_succ:
@@ -174,9 +174,9 @@ def main():
                                               callback_data=json.dumps({'action': 'all', 'username': command}))],
                     ])
                     global message_with_inline_keyboard
-                    message_with_inline_keyboard = await bot.sendMessage(chat_id, 'What do you want?', reply_markup=markup)
+                    message_with_inline_keyboard = await bot.sendMessage(chat_id, 'What can I do for you?', reply_markup=markup)
                 else:
-                    await bot.sendMessage(chat_id, 'You are not an admin! You are not allowed to do this action!')
+                    await bot.sendMessage(chat_id, 'You are not authorized! Invalid action!')
         except Exception as e:
             logging.exception(e)
             for chat_id in [x.chat_id for x in session.query(Chat).filter(Chat.admin == True).all()]:
@@ -199,7 +199,7 @@ def main():
             if data['action'] == 'subscribe':
                 current_subscription.subscribed = True
                 session.add(current_subscription)
-                await bot.sendMessage(from_id, 'subscribed to {}'.format(data['username']))
+                await bot.sendMessage(from_id, 'Subscribed to {}'.format(data['username']))
                 try:
                     session.commit()
                 except Exception as e:
@@ -207,7 +207,7 @@ def main():
                     session.rollback()
             elif data['action'] == 'unsubscribe':
                 current_subscription.subscribed = False
-                await bot.sendMessage(from_id, 'unbscribed from {}'.format(data['username']))
+                await bot.sendMessage(from_id, 'Unbscribed from {}'.format(data['username']))
                 try:
                     session.commit()
                 except Exception as e:
@@ -229,7 +229,7 @@ def main():
 
     async def send_rss_photos(from_id, photos, session):
         if photos is None or len(photos) == 0:
-            await bot.sendMessage(from_id, 'Нет фото')
+            await bot.sendMessage(from_id, 'No picture')
         else:
             for photo in photos:
                 with open(photo.local_path, 'rb') as pf:
