@@ -1,0 +1,12 @@
+[Unit]
+Description=InstagramoBot
+
+[Service]
+ExecStart=/usr/bin/python3 /opt/InstagramTelegramBot/InstagramoBot.py
+GuessMainPID=no
+Type=forking
+User=instagramo
+Group=instagramo
+
+[Install]
+WantedBy=multi-user.target
