@@ -23,7 +23,7 @@ KEY = '''encryption key for db'''
 sudo apt install -y python3 python3-pip libsqlcipher-dev build-essential git
 wget https://files.pythonhosted.org/packages/96/d9/40e4e515d3e17ed0adbbde1078e8518f8c4e3628496b56eb8f026a02b9e4/urllib3-1.21.1.tar.gz
 tar zxvf urllib3-1.21.1.tar.gz
-cd urllib3
+cd urllib3-1.21.1
 python3 setup.py install
 git clone https://github.com/bntjah/InstagramTelegramBot/
 cd InstagramTelegramBot
