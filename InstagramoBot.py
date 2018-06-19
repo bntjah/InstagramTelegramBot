@@ -48,7 +48,7 @@ def main():
                                     longitude = geo_parsed.group('longitude')
                                     latitude = geo_parsed.group('latitude')
                                     for zoom in range(0,18,3):
-                                        current_url = 'https://static-maps.yandex.ru/1.x/?ll={},{}&size=450,450&z={}&l=map&pt={},{}'.format(latitude, longitude, zoom, latitude, longitude)
+                                        current_url = 'https://www.google.com/maps/{},{}'.format(latitude, longitude)
                                         current_tmp_filename = os.path.join(tempfile._get_default_tempdir(),
                                                                         next(tempfile._get_candidate_names()))
                                         await Utils.download(current_url, path=current_tmp_filename)
