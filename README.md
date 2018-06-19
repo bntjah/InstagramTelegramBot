@@ -1,4 +1,4 @@
-Not my work just trying to put it in English and make it more reachable for non Russian users
+Not my work just trying to put it in English and make it more reachable/accessible for non Russian users
 
 # InstagramTelegramBot
 Telegram Bot monitoring Instagram accounts and send photos
