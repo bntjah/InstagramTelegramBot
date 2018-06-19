@@ -1,12 +1,15 @@
-# Not my work just trying to put it in English
+Not my work just trying to put it in English and make it more reachable for non Russian users
+
 # InstagramTelegramBot
 Telegram Bot monitoring Instagram accounts and send photos
 Now bot parsing RSS-feed of websta.me, getting photos with titles and send it to subscribers
 
 Commands:
+```
 1. /start - adding chat to 
 2. /admin token - adding user as administrator (other users can't subscribe and not getting photos, it's private bot)
 3. %username% - getting menu for subscribe / unsubscribe / getting photos of username
+```
 
 config_local.py template
 ```
